@@ -24,11 +24,11 @@ export const MODEL_OPTIONS = [
     style: "gemini",
   },
   {
-    id: "perplexity",
-    label: "Perplexity",
-    shortLabel: "Perplexity",
+    id: "grok",
+    label: "Grok",
+    shortLabel: "Grok",
     accent: "#20808d",
-    style: "perplexity",
+    style: "grok",
   },
 ];
 

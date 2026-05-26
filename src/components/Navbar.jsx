@@ -29,59 +29,158 @@ export default function Navbar() {
 
   return (
     <nav
-      className={`sticky top-0 z-50 transition-all duration-300 dm-sans
-        ${
-          scrolled
-            ? "bg-[#07080a]/80 backdrop-blur-md border-b border-[rgba(163,255,78,0.08)]"
-            : "bg-[#07080a] border-b border-transparent"
-        }`}
+      style={{
+        position: "sticky",
+        top: 0,
+        zIndex: 50,
+        background: scrolled ? "rgba(10,10,10,.88)" : "#0a0a0a",
+        backdropFilter: scrolled ? "blur(12px)" : "none",
+        borderBottom: scrolled
+          ? "1px solid rgba(255,255,255,.07)"
+          : "1px solid transparent",
+        transition: "background .3s, border-color .3s, backdrop-filter .3s",
+        fontFamily: "'Inter', system-ui, sans-serif",
+      }}
     >
-      <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+      <div
+        style={{
+          maxWidth: 1024,
+          margin: "0 auto",
+          padding: "0 24px",
+          height: 56,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+        }}
+      >
+        {/* ── Logo ── */}
+        <Link
+          to="/"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: 10,
+            textDecoration: "none",
+          }}
+        >
+          {/* Square mark */}
+          <div
+            style={{
+              width: 22,
+              height: 22,
+              border: "1px solid rgba(255,255,255,.22)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              flexShrink: 0,
+            }}
+          >
+            <div style={{ width: 8, height: 8, background: "#fff" }} />
+          </div>
 
-        {/* Logo */}
-        <Link to="/" className="flex items-center gap-2 group">
-          <span className="w-7 h-7 flex items-center justify-center rounded-md
-                           bg-[rgba(163,255,78,0.12)]
-                           border border-[rgba(163,255,78,0.25)]
-                           text-[#a3ff4e] text-[10px] font-bold dm-mono
-                           group-hover:shadow-[0_0_20px_rgba(163,255,78,0.4)] transition">
-            AI
-          </span>
-
-          <span className="text-white dm-mono text-sm tracking-[0.08em]">
+          <span
+            style={{
+              fontFamily: "'JetBrains Mono', monospace",
+              fontSize: 12,
+              letterSpacing: ".14em",
+              color: "rgba(255,255,255,.65)",
+              textTransform: "uppercase",
+            }}
+          >
             Search Bench
           </span>
         </Link>
 
-        {/* Desktop Links */}
-        <div className="hidden md:flex items-center gap-1">
+        {/* ── Desktop Links ── */}
+        <div
+          style={{
+            display: "none",
+            alignItems: "center",
+            gap: 2,
+          }}
+          className="md-nav-links"
+        >
           {navLinks.map(({ to, label }) => (
             <Link
               key={to}
               to={to}
-              className={`px-4 py-2 rounded-md text-[11px] tracking-[0.08em] uppercase dm-mono transition-all duration-200 border
-                ${
-                  isActive(to)
-                    ? "text-[#a3ff4e] bg-[rgba(163,255,78,0.06)] border-[rgba(163,255,78,0.25)] shadow-[0_0_18px_rgba(163,255,78,0.08)]"
-                    : "text-[rgba(255,255,255,0.35)] border-transparent hover:text-white hover:bg-white/5 hover:border-white/10"
-                }`}
+              style={{
+                padding: "6px 14px",
+                borderRadius: 6,
+                fontSize: 11,
+                letterSpacing: ".12em",
+                textTransform: "uppercase",
+                fontFamily: "'JetBrains Mono', monospace",
+                textDecoration: "none",
+                border: isActive(to)
+                  ? "1px solid rgba(255,255,255,.15)"
+                  : "1px solid transparent",
+                color: isActive(to)
+                  ? "rgba(255,255,255,.85)"
+                  : "rgba(255,255,255,.28)",
+                background: isActive(to)
+                  ? "rgba(255,255,255,.05)"
+                  : "transparent",
+                transition: "color .2s, background .2s, border-color .2s",
+              }}
+              onMouseEnter={(e) => {
+                if (!isActive(to)) {
+                  e.currentTarget.style.color = "rgba(255,255,255,.7)";
+                  e.currentTarget.style.background = "rgba(255,255,255,.04)";
+                  e.currentTarget.style.borderColor = "rgba(255,255,255,.08)";
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (!isActive(to)) {
+                  e.currentTarget.style.color = "rgba(255,255,255,.28)";
+                  e.currentTarget.style.background = "transparent";
+                  e.currentTarget.style.borderColor = "transparent";
+                }
+              }}
             >
               {label}
             </Link>
           ))}
         </div>
 
-        {/* Right side */}
-        <div className="flex items-center gap-3">
-
+        {/* ── Right side ── */}
+        <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+          {/* CTA button — desktop */}
           <Link
             to="/compare"
-            className="hidden md:inline-flex items-center dm-mono text-[11px] tracking-[0.08em]
-                       bg-[#a3ff4e] hover:bg-[#b8ff5a]
-                       text-black font-semibold px-4 py-2 rounded-md
-                       transition-all duration-200 hover:shadow-[0_0_35px_rgba(163,255,78,0.45)] active:scale-95"
+            style={{
+              display: "none",
+              alignItems: "center",
+              gap: 8,
+              fontFamily: "'JetBrains Mono', monospace",
+              fontSize: 11,
+              letterSpacing: ".12em",
+              textTransform: "uppercase",
+              background: "#fff",
+              color: "#000",
+              fontWeight: 500,
+              padding: "7px 18px",
+              borderRadius: 6,
+              textDecoration: "none",
+              transition: "background .2s, transform .15s, box-shadow .2s",
+            }}
+            className="md-cta"
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = "#e8e8e8";
+              e.currentTarget.style.transform = "translateY(-2px)";
+              e.currentTarget.style.boxShadow = "0 10px 32px rgba(255,255,255,.12)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = "#fff";
+              e.currentTarget.style.transform = "none";
+              e.currentTarget.style.boxShadow = "none";
+            }}
           >
             Open Compare
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
           </Link>
 
           {/* Hamburger */}
@@ -89,62 +188,121 @@ export default function Navbar() {
             aria-label={menuOpen ? "Close menu" : "Open menu"}
             aria-expanded={menuOpen}
             onClick={() => setMenuOpen((v) => !v)}
-            className="md:hidden flex flex-col gap-1.5 p-2 text-[rgba(255,255,255,0.5)] hover:text-[#a3ff4e] transition"
+            className="md-hamburger"
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: 5,
+              padding: 8,
+              background: "none",
+              border: "none",
+              cursor: "pointer",
+              color: "rgba(255,255,255,.4)",
+            }}
           >
-            <span
-              className={`block w-5 h-px bg-current transition-transform duration-200 ${
-                menuOpen ? "translate-y-[7px] rotate-45" : ""
-              }`}
-            />
-            <span
-              className={`block w-5 h-px bg-current transition-opacity duration-200 ${
-                menuOpen ? "opacity-0" : ""
-              }`}
-            />
-            <span
-              className={`block w-5 h-px bg-current transition-transform duration-200 ${
-                menuOpen ? "-translate-y-[7px] -rotate-45" : ""
-              }`}
-            />
+            {[
+              menuOpen ? "translateY(7px) rotate(45deg)" : "none",
+              null, // middle bar
+              menuOpen ? "translateY(-7px) rotate(-45deg)" : "none",
+            ].map((transform, i) => (
+              <span
+                key={i}
+                style={{
+                  display: "block",
+                  width: 18,
+                  height: 1,
+                  background: "currentColor",
+                  transition: "transform .2s, opacity .2s",
+                  transform: transform ?? "none",
+                  opacity: i === 1 && menuOpen ? 0 : 1,
+                }}
+              />
+            ))}
           </button>
         </div>
       </div>
 
-      {/* Mobile Menu */}
+      {/* ── Mobile Menu ── */}
       <div
-        className={`md:hidden overflow-hidden transition-all duration-300
-          ${
-            menuOpen
-              ? "max-h-64 border-t border-[rgba(163,255,78,0.1)] bg-[#07080a]/95"
-              : "max-h-0"
-          }`}
+        style={{
+          overflow: "hidden",
+          maxHeight: menuOpen ? 280 : 0,
+          transition: "max-height .3s ease",
+          borderTop: menuOpen ? "1px solid rgba(255,255,255,.05)" : "none",
+          background: "rgba(10,10,10,.96)",
+        }}
       >
-        <div className="px-6 py-3 flex flex-col gap-1">
+        <div
+          style={{
+            padding: "12px 24px 16px",
+            display: "flex",
+            flexDirection: "column",
+            gap: 4,
+          }}
+        >
           {navLinks.map(({ to, label }) => (
             <Link
               key={to}
               to={to}
-              className={`px-3 py-2.5 rounded-md text-sm dm-mono tracking-[0.06em] transition
-                ${
-                  isActive(to)
-                    ? "text-[#a3ff4e] bg-[rgba(163,255,78,0.08)]"
-                    : "text-[rgba(255,255,255,0.4)] hover:text-white hover:bg-white/5"
-                }`}
+              style={{
+                padding: "10px 12px",
+                borderRadius: 6,
+                fontFamily: "'JetBrains Mono', monospace",
+                fontSize: 12,
+                letterSpacing: ".1em",
+                textTransform: "uppercase",
+                textDecoration: "none",
+                color: isActive(to)
+                  ? "rgba(255,255,255,.85)"
+                  : "rgba(255,255,255,.3)",
+                background: isActive(to)
+                  ? "rgba(255,255,255,.05)"
+                  : "transparent",
+                transition: "color .2s, background .2s",
+              }}
             >
               {label}
             </Link>
           ))}
 
+          {/* Mobile CTA */}
           <Link
             to="/compare"
-            className="mt-2 dm-mono text-[11px] tracking-[0.08em]
-                       bg-[#a3ff4e] text-black font-semibold px-4 py-2 rounded-md
-                       hover:bg-[#b8ff5a] transition"
+            style={{
+              marginTop: 8,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: 8,
+              fontFamily: "'JetBrains Mono', monospace",
+              fontSize: 11,
+              letterSpacing: ".12em",
+              textTransform: "uppercase",
+              background: "#fff",
+              color: "#000",
+              fontWeight: 500,
+              padding: "10px 18px",
+              borderRadius: 6,
+              textDecoration: "none",
+            }}
           >
             Open Compare
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
           </Link>
         </div>
       </div>
+
+      {/* Responsive styles injected once */}
+      <style>{`
+        @media (min-width: 768px) {
+          .md-nav-links { display: flex !important; }
+          .md-cta { display: flex !important; }
+          .md-hamburger { display: none !important; }
+        }
+      `}</style>
     </nav>
   );
 }

@@ -523,7 +523,7 @@ export default function Home() {
               fontSize: 14, color: "rgba(255,255,255,.28)", maxWidth: 320,
               margin: "0 auto 40px", lineHeight: 1.8, fontWeight: 300,
             }}>
-              No account. No API key. No nonsense. Just open the page and compare.
+               any AI model, any provider, one prompt. See differences in tone, depth, and accuracy at a glance. No setup, no cost — just honest side-by-side answers.
             </p>
             <Link to="/compare" className="btn-primary font-mono"
               style={{
